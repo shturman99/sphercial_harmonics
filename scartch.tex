@@ -63,14 +63,9 @@ $\nabla^2 \phi = - k^2 \phi$ \\Is elliptic partial differential equation, which 
 % ============================================================
 
 \subsection{Spherical Harmonics Normalization}
-We take $\hat n$ as a unit direction on $S^2$ and define $Y_{\ell m}(\hat n)$ so that
-\begin{equation}
-  \int_{S^2} d\hat n\; Y_{\ell m}(\hat n) Y^*_{\ell' m'}(\hat n)
-  =
-  \delta_{\ell\ell'}\delta_{mm'} .
-  \label{eq:ylm:orth}
-\end{equation}
-This normalization follows standard angular-momentum conventions \cite{1957Edmonds,1988varshalovich}.
+We take $\hat n$ as a unit direction on $S^2$ and define $Y_{\ell m}(\hat n)$
+so that the orthonormality relation \eqref{eq:ylm:orth} holds; the normalization
+follows standard angular-momentum conventions \cite{1957Edmonds,1988varshalovich}.
 
 \subsection{Integration Measure on S2}
 We use
@@ -81,11 +76,8 @@ We use
 \end{equation}
 
 \subsection{Phase Convention}
-We adopt the Condon--Shortley phase, so that
-\begin{equation}
-  Y_{\ell,-m}(\hat n) = (-1)^m Y_{\ell m}^*(\hat n) .
-  \label{eq:ylm:conj}
-\end{equation}
+We adopt the Condon--Shortley phase, so that the conjugation rule
+\eqref{eq:ylm:conj} holds.
 
 \subsection{CG / Wigner 3j Relation}
 Clebsch--Gordan coefficients are related to Wigner 3j symbols by
@@ -116,10 +108,7 @@ the complex-conjugation rule in \eqref{eq:ylm:conj} applies.
 
 \subsection{Parity Rules}
 Under spatial inversion $\hat n \mapsto -\hat n$,
-\begin{equation}
-  Y_{\ell m}(-\hat n) = (-1)^{\ell} Y_{\ell m}(\hat n) .
-  \label{eq:ylm:parity}
-\end{equation}
+the parity relation \eqref{eq:ylm:parity} applies.
 
 \subsection{Sanity Checks}
 % These checks are included to catch sign/phase slips and normalization mistakes early.
@@ -171,34 +160,271 @@ in later BipoSH manipulations \cite{1957Edmonds,1988varshalovich,1984wald,2007Ma
 \section{Ordinary Spherical Harmonics}
 % ============================================================
 
-\subsection{Definition}
+\subsection{Definition and Eigenvalue Problem}
+\begin{derivationbox}
+Define the Laplacian on $S^2$ by separating out the radial part of $\nabla^2$:
+\begin{equation}
+  \nabla^2_{S^2}
+  =
+  \frac{1}{\sin\theta}\frac{\partial}{\partial\theta}
+  \left(\sin\theta\frac{\partial}{\partial\theta}\right)
+  + \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\phi^2}.
+  \label{eq:ylm:laplacian_operator}
+\end{equation}
+We define $Y_{\ell m}$ as eigenfunctions of $\nabla^2_{S^2}$:
+\begin{equation}
+  \nabla^2_{S^2} Y_{\ell m}(\theta,\phi)
+  = -\ell(\ell+1) Y_{\ell m}(\theta,\phi).
+  \label{eq:ylm:laplacian}
+\end{equation}
+Separating variables with $Y_{\ell m}(\theta,\phi)=\Theta_{\ell m}(\theta)\Phi_m(\phi)$
+gives
+\begin{equation}
+  \frac{1}{\Phi_m}\frac{d^2\Phi_m}{d\phi^2}
+  = -m^2,
+  \label{eq:ylm:phi_eq}
+\end{equation}
+so that periodicity in $\phi$ implies
+\begin{equation}
+  \Phi_m(\phi)=e^{im\phi}, \qquad m\in\mathbb{Z}.
+  \label{eq:ylm:phi_solution}
+\end{equation}
+The remaining $\theta$ equation becomes
+\begin{equation}
+  \frac{1}{\sin\theta}\frac{d}{d\theta}
+  \left(\sin\theta\frac{d\Theta_{\ell m}}{d\theta}\right)
+  - \frac{m^2}{\sin^2\theta}\Theta_{\ell m}
+  = -\ell(\ell+1)\Theta_{\ell m},
+  \label{eq:ylm:theta_eq}
+\end{equation}
+whose regular solutions are associated Legendre functions
+$\Theta_{\ell m}(\theta)\propto P_\ell^m(\cos\theta)$. Fixing the normalization
+to satisfy \eqref{eq:ylm:orth} yields
 \begin{equation}
   Y_{\ell m}(\theta,\phi)
   =
   (-1)^m
   \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}}
-  P_\ell^m(\cos\theta)e^{im\phi}
+  P_\ell^m(\cos\theta)e^{im\phi}.
   \label{eq:ylm:def}
 \end{equation}
+The angular momentum operators are related to the Laplacian by
+\begin{equation}
+  L^2 = -\nabla^2_{S^2},
+  \label{eq:L2:operator}
+\end{equation}
+so the eigenvalue equation \eqref{eq:ylm:laplacian} is equivalent to
+\begin{equation}
+  L^2 Y_{\ell m} = \ell(\ell+1) Y_{\ell m}.
+  \label{eq:L2:eigen}
+\end{equation}
+Similarly, $L_z=-i\partial_\phi$ implies
+\begin{equation}
+  L_z Y_{\ell m} = m Y_{\ell m}.
+  \label{eq:Lz:eigen}
+\end{equation}
+Using the ladder relation from \eqref{eq:so3:ladder} and
+$Y_{\ell m}(\hat n)=\braket{\hat n|\ell m}$ gives
+\begin{equation}
+  L_\pm Y_{\ell m}
+  = \sqrt{\ell(\ell+1)-m(m\pm1)}\,Y_{\ell,m\pm1}.
+  \label{eq:Lpm:action}
+\end{equation}
 
-\subsection{Orthogonality}
-The orthogonality condition is given in \eqref{eq:ylm:orth}.
+Used identities: \eqref{eq:ylm:orth}, \eqref{eq:so3:ladder}.
+\end{derivationbox}
+
+\subsection{Orthonormality}
+\begin{derivationbox}
+Define the inner product on $S^2$ with the measure \eqref{eq:s2:measure}:
+\begin{equation}
+  \braket{Y_{\ell m}}{Y_{\ell' m'}}
+  \equiv \int_{S^2} d\hat n\; Y_{\ell m}(\hat n) Y^*_{\ell' m'}(\hat n).
+  \label{eq:ylm:inner_product}
+\end{equation}
+Hermiticity of $L^2$ with respect to this measure implies
+\begin{align}
+  \int d\hat n\; Y^*_{\ell' m'}\,L^2 Y_{\ell m}
+  &= \int d\hat n\; (L^2 Y_{\ell' m'})^*\,Y_{\ell m},
+  \label{eq:ylm:orth_step1} \\
+  \ell(\ell+1)\int d\hat n\; Y_{\ell m} Y^*_{\ell' m'}
+  &= \ell'(\ell'+1)\int d\hat n\; Y_{\ell m} Y^*_{\ell' m'}.
+  \label{eq:ylm:orth_step2}
+\end{align}
+For $\ell\ne\ell'$, the factor
+$\ell(\ell+1)-\ell'(\ell'+1)\ne0$ forces the integral to vanish, yielding
+$\delta_{\ell\ell'}$. For $\ell=\ell'$, hermiticity of $L_z$ gives
+\begin{align}
+  \int d\hat n\; Y^*_{\ell m'}\,L_z Y_{\ell m}
+  &= \int d\hat n\; (L_z Y_{\ell m'})^*\,Y_{\ell m},
+  \label{eq:ylm:orth_step3} \\
+  m\int d\hat n\; Y_{\ell m} Y^*_{\ell m'}
+  &= m'\int d\hat n\; Y_{\ell m} Y^*_{\ell m'}.
+  \label{eq:ylm:orth_step4}
+\end{align}
+Hence the integral vanishes unless $m=m'$, and the normalization
+in \eqref{eq:ylm:def} fixes the remaining diagonal value to unity:
+\begin{equation}
+  \int_{S^2} d\hat n\; Y_{\ell m}(\hat n) Y^*_{\ell' m'}(\hat n)
+  =
+  \delta_{\ell\ell'}\delta_{mm'} .
+  \label{eq:ylm:orth}
+\end{equation}
+
+Used identities: \eqref{eq:s2:measure}, \eqref{eq:L2:eigen}, \eqref{eq:Lz:eigen}, \eqref{eq:ylm:def}.
+\end{derivationbox}
 
 \subsection{Completeness}
 \begin{derivationbox}
-Completeness on $S^2$ follows from the addition theorem:
+Let $f(\hat n)$ be a square-integrable function on $S^2$ and expand it in the
+orthonormal basis:
+\begin{equation}
+  f(\hat n)
+  = \sum_{\ell m} a_{\ell m} Y_{\ell m}(\hat n).
+  \label{eq:ylm:complete_step1}
+\end{equation}
+Projecting onto $Y_{\ell m}$ and using \eqref{eq:ylm:orth} gives the coefficients
+\begin{equation}
+  a_{\ell m}
+  = \int d\hat n'\; f(\hat n') Y^*_{\ell m}(\hat n').
+  \label{eq:ylm:complete_step2}
+\end{equation}
+Insert \eqref{eq:ylm:complete_step2} into \eqref{eq:ylm:complete_step1}:
 \begin{align}
-  \sum_{m=-\ell}^{\ell}
-  Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n')
-  &= \frac{2\ell+1}{4\pi} P_\ell(\hat n\cdot\hat n'),
-  \label{eq:ylm:addition} \\
+  f(\hat n)
+  &= \int d\hat n'\; f(\hat n')
+  \sum_{\ell m} Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n'),
+  \label{eq:ylm:complete_step3} \\
+  &= \int d\hat n'\; f(\hat n')\,\delta(\hat n,\hat n').
+  \label{eq:ylm:complete_step4}
+\end{align}
+Therefore the completeness relation is
+\begin{equation}
   \sum_{\ell=0}^{\infty}\sum_{m=-\ell}^{\ell}
   Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n')
-  &= \delta(\hat n,\hat n').
+  = \delta(\hat n,\hat n'),
   \label{eq:ylm:complete}
+\end{equation}
+with $\int d\hat n\,\delta(\hat n,\hat n')=1$. The product form used in
+\eqref{eq:biposh:complete} follows by applying \eqref{eq:ylm:complete} to each
+copy of $S^2$.
+
+Used identities: \eqref{eq:ylm:orth}.
+\end{derivationbox}
+
+\subsection{Complex Conjugation and Parity}
+\begin{derivationbox}
+Start from the Rodrigues formula for the associated Legendre functions:
+\begin{equation}
+  P_\ell^m(x)
+  = (-1)^m (1-x^2)^{m/2}\frac{d^m}{dx^m}P_\ell(x).
+  \label{eq:plm:rodrigues}
+\end{equation}
+Using the same definition with $m\to -m$ gives
+\begin{align}
+  P_\ell^{-m}(x)
+  &= (-1)^m \frac{(\ell-m)!}{(\ell+m)!}
+  (1-x^2)^{-m/2}\frac{d^m}{dx^m}P_\ell(x),
+  \label{eq:plm:negm_step1} \\
+  &= (-1)^m \frac{(\ell-m)!}{(\ell+m)!} P_\ell^m(x).
+  \label{eq:plm:negm}
 \end{align}
-The second line is the completeness relation on the sphere, with the delta
-function normalized so that $\int d\hat n\,\delta(\hat n,\hat n')=1$.
+Taking the complex conjugate of \eqref{eq:ylm:def} then yields
+\begin{align}
+  Y_{\ell m}^*(\theta,\phi)
+  &= (-1)^m
+  \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}}
+  P_\ell^m(\cos\theta)e^{-im\phi},
+  \label{eq:ylm:conj_step1} \\
+  &= (-1)^m Y_{\ell,-m}(\theta,\phi),
+  \label{eq:ylm:conj}
+\end{align}
+which is the Condon--Shortley conjugation rule.
+For parity, note that $P_\ell(-x)=(-1)^\ell P_\ell(x)$ and use
+\eqref{eq:plm:rodrigues} to obtain
+\begin{equation}
+  P_\ell^m(-x)=(-1)^{\ell+m} P_\ell^m(x).
+  \label{eq:plm:parity}
+\end{equation}
+Then for $\hat n\mapsto-\hat n$ (i.e.\ $\theta\mapsto\pi-\theta$, $\phi\mapsto\phi+\pi$),
+\begin{align}
+  Y_{\ell m}(\pi-\theta,\phi+\pi)
+  &= (-1)^m
+  \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}}
+  P_\ell^m(-\cos\theta)e^{im(\phi+\pi)},
+  \label{eq:ylm:parity_step1} \\
+  &= (-1)^{\ell} Y_{\ell m}(\theta,\phi),
+  \label{eq:ylm:parity}
+\end{align}
+as required.
+
+Used identities: \eqref{eq:ylm:def}, \eqref{eq:plm:rodrigues}.
+\end{derivationbox}
+\noindent\textbf{Warning.} The conjugation and parity relations
+\eqref{eq:ylm:conj}--\eqref{eq:ylm:parity} depend on the Condon--Shortley phase
+in \eqref{eq:ylm:def}. Altering that phase flips signs in CG relations and
+invalidates identities used later in BipoSH and spin-weighted sections.
+
+\subsection{Rotation Properties}
+\begin{derivationbox}
+Let $\ket{\hat n}$ denote the position eigenstate on $S^2$ with
+$Y_{\ell m}(\hat n)=\braket{\hat n|\ell m}$. Under a rotation $R$,
+\begin{equation}
+  \hat U(R)\ket{\ell m} = \sum_{m'} D^{\ell}_{m' m}(R)\ket{\ell m'},
+  \label{eq:wignerD:def}
+\end{equation}
+so
+\begin{align}
+  Y_{\ell m}(R\hat n)
+  &= \braket{R\hat n|\ell m}
+  = \braket{\hat n|\hat U(R)^\dagger|\ell m},
+  \label{eq:ylm:rotation_step1} \\
+  &= \sum_{m'} D^{\ell}_{m m'}(R)\,Y_{\ell m'}(\hat n).
+  \label{eq:ylm:rotation}
+\end{align}
+This SO(3) covariance underlies the coupled-basis construction of BipoSH in
+\eqref{eq:biposh:def}.
+
+Used identities: \eqref{eq:wignerD:def}.
+\end{derivationbox}
+
+\subsection{Addition Theorem}
+\begin{derivationbox}
+Define the rotationally invariant sum
+\begin{equation}
+  S_\ell(\hat n,\hat n')
+  \equiv \sum_{m=-\ell}^{\ell} Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n').
+  \label{eq:ylm:addition_step1}
+\end{equation}
+Using \eqref{eq:ylm:rotation} and the unitarity of $D^\ell$, the sum satisfies
+\begin{equation}
+  S_\ell(R\hat n,R\hat n') = S_\ell(\hat n,\hat n'),
+  \label{eq:ylm:addition_step2}
+\end{equation}
+so $S_\ell$ depends only on $\hat n\cdot\hat n'=\cos\gamma$. Choose a rotation
+with $R\hat n'=\hat z$, so that $\gamma$ is the polar angle of $R\hat n$:
+\begin{equation}
+  S_\ell(\hat n,\hat n')
+  = S_\ell(R\hat n,\hat z)
+  = \sum_{m=-\ell}^{\ell} Y_{\ell m}(R\hat n) Y^*_{\ell m}(\hat z).
+  \label{eq:ylm:addition_step3}
+\end{equation}
+Only $m=0$ survives at the north pole, and \eqref{eq:ylm:def} gives
+\begin{equation}
+  Y_{\ell 0}(\theta,0)
+  = \sqrt{\frac{2\ell+1}{4\pi}}\,P_\ell(\cos\theta).
+  \label{eq:ylm:mzero}
+\end{equation}
+Therefore
+\begin{equation}
+  S_\ell(\hat n,\hat n')
+  = \frac{2\ell+1}{4\pi} P_\ell(\hat n\cdot\hat n'),
+  \label{eq:ylm:addition}
+\end{equation}
+which is the addition theorem used later in the isotropic limit
+\eqref{eq:biposh:iso_step3}.
+
+Used identities: \eqref{eq:ylm:rotation}, \eqref{eq:ylm:def}.
 \end{derivationbox}
 
 \newpage
