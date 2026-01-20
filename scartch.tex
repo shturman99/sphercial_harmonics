@@ -20,6 +20,22 @@
 \newcommand{\ThreeJ}[6]{\begin{pmatrix} #1 & #2 & #3 \\ #4 & #5 & #6 \end{pmatrix}}
 
 % =========================
+% Derivation boxes
+% =========================
+\newenvironment{derivationbox}{
+  \begin{center}
+  \begin{minipage}{0.95\linewidth}
+  \hrule\vspace{0.5em}
+  \textbf{Derivation}\par
+  \vspace{0.5em}
+}{
+  \vspace{0.5em}
+  \hrule
+  \end{minipage}
+  \end{center}
+}
+
+% =========================
 % Document metadata
 % =========================
 \title{Scratch Notes: Bipolar Spherical Harmonics for Gravitational Waves}
@@ -165,7 +181,19 @@ in later BipoSH manipulations \cite{EdmondsPlaceholder,VarshalovichPlaceholder,W
 \end{equation}
 
 \subsection{Completeness}
-(To be derived)
+\begin{derivationbox}
+Completeness on $S^2$ follows from the addition theorem:
+\begin{align}
+  \sum_{m=-\ell}^{\ell}
+  Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n')
+  &= \frac{2\ell+1}{4\pi} P_\ell(\hat n\cdot\hat n'), \\
+  \sum_{\ell=0}^{\infty}\sum_{m=-\ell}^{\ell}
+  Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n')
+  &= \delta(\hat n,\hat n').
+\end{align}
+The second line is the completeness relation on the sphere, with the delta
+function normalized so that $\int d\hat n\,\delta(\hat n,\hat n')=1$.
+\end{derivationbox}
 
 \newpage
 
@@ -189,44 +217,319 @@ in later BipoSH manipulations \cite{EdmondsPlaceholder,VarshalovichPlaceholder,W
 \newpage
 
 % ============================================================
-\section{Spin-Weighted Spherical Harmonics}
+\section{BipoSH from Representation Theory}
 % ============================================================
 
-\subsection{Spin-Raising and Lowering Operators}
+\subsection{SO(3) Irreps and Tensor Products}
+\begin{derivationbox}
+An SO(3) rotation $R$ acts on the irrep basis by
+\begin{equation}
+  \hat U(R)\ket{\ell m} = \sum_{m'} D^{\ell}_{m' m}(R)\ket{\ell m'}.
+\end{equation}
+On the tensor product $\mathcal{H}_{\ell_1}\otimes\mathcal{H}_{\ell_2}$ the action is
 \begin{align}
-  \eth\, {}_sY_{\ell m} &= \sqrt{(\ell-s)(\ell+s+1)}\; {}_{s+1}Y_{\ell m} \\
-  \bar\eth\, {}_sY_{\ell m} &= -\sqrt{(\ell+s)(\ell-s+1)}\; {}_{s-1}Y_{\ell m}
+  \hat U(R)\ket{\ell_1 m_1}\ket{\ell_2 m_2}
+  &= \sum_{m_1' m_2'} D^{\ell_1}_{m_1' m_1}(R)
+  D^{\ell_2}_{m_2' m_2}(R)
+  \ket{\ell_1 m_1'}\ket{\ell_2 m_2'}.
 \end{align}
+Thus the product representation decomposes into irreps labeled by $L$.
+\end{derivationbox}
 
-\subsection{Spin-2 Case (Gravitational Waves)}
-(To be filled)
+\subsection{Coupled Basis Construction}
+\begin{derivationbox}
+Define the coupled basis $\ket{\ell_1 \ell_2; L M}$ by Clebsch--Gordan coefficients:
+\begin{equation}
+  \ket{\ell_1 \ell_2; L M}
+  = \sum_{m_1 m_2}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+  \ket{\ell_1 m_1}\ket{\ell_2 m_2}.
+\end{equation}
+Orthonormality of the CG coefficients implies
+\begin{equation}
+  \braket{\ell_1 \ell_2; L M | \ell_1 \ell_2; L' M'} = \delta_{L L'}\delta_{M M'}.
+\end{equation}
+This basis furnishes the irrep $\mathcal{H}_L$ inside
+$\mathcal{H}_{\ell_1}\otimes\mathcal{H}_{\ell_2}$. \hfill [Edmonds], [Varshalovich]
+\end{derivationbox}
+
+\subsection{BipoSH from Representation Theory}
+\begin{derivationbox}
+Let $\ket{\hat n}$ be the position eigenstate on $S^2$, with
+$Y_{\ell m}(\hat n)=\braket{\hat n|\ell m}$. The tensor-product position basis is
+$\ket{\hat n_1,\hat n_2}=\ket{\hat n_1}\otimes\ket{\hat n_2}$. Then
+\begin{align}
+  Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+  &\equiv \braket{\hat n_1,\hat n_2|\ell_1 \ell_2; L M} \\
+  &= \sum_{m_1 m_2}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+  Y_{\ell_1 m_1}(\hat n_1)
+  Y_{\ell_2 m_2}(\hat n_2),
+\end{align}
+which is the bipolar spherical harmonic definition derived from the coupled
+basis. The labels $\ell_1,\ell_2$ describe the individual angular momenta on
+$\hat n_1$ and $\hat n_2$, while $L,M$ label the total angular momentum.
+\end{derivationbox}
+
+Interpretation: why L labels anisotropy.
+$L=0$ corresponds to a scalar under rotations of the pair $(\hat n_1,\hat n_2)$,
+so any $L>0$ component measures deviations from statistical isotropy.
 
 \newpage
 
 % ============================================================
-\section{Bipolar Spherical Harmonics (BipoSH)}
+\section{Orthogonality and Completeness of BipoSH}
 % ============================================================
 
-\subsection{Definition}
-\begin{equation}
+\subsection{Orthogonality on $S^2\times S^2$}
+\begin{derivationbox}
+Using the definition and orthogonality of $Y_{\ell m}$,
+\begin{align}
+  &\int d\hat n_1 d\hat n_2\;
   Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
-  =
+  Y^{L'M'*}_{\ell_1'\ell_2'}(\hat n_1,\hat n_2) \\
+  &= \sum_{m_1 m_2 m_1' m_2'}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+  \CG{\ell_1'}{m_1'}{\ell_2'}{m_2'}{L'}{M'}
+  \int d\hat n_1\,Y_{\ell_1 m_1} Y^*_{\ell_1' m_1'}
+  \int d\hat n_2\,Y_{\ell_2 m_2} Y^*_{\ell_2' m_2'} \\
+  &= \delta_{\ell_1\ell_1'}\delta_{\ell_2\ell_2'}
   \sum_{m_1 m_2}
   \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
-  Y_{\ell_1 m_1}(\hat n_1)
-  Y_{\ell_2 m_2}(\hat n_2)
-\end{equation}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L'}{M'} \\
+  &= \delta_{\ell_1\ell_1'}\delta_{\ell_2\ell_2'}\delta_{L L'}\delta_{M M'}.
+\end{align}
+The last step uses CG orthogonality.
+\end{derivationbox}
 
-\subsection{Orthogonality}
-(To be derived explicitly)
-
-\subsection{Parity}
-\begin{equation}
-  Y^{LM}_{\ell_1\ell_2}(-\hat n_1,-\hat n_2)
-  =
-  (-1)^{\ell_1+\ell_2}
+\subsection{Completeness on $S^2\times S^2$}
+\begin{derivationbox}
+Completeness follows by expanding the product of delta functions:
+\begin{align}
+  \delta(\hat n_1,\hat n_1')\,\delta(\hat n_2,\hat n_2')
+  &= \sum_{\ell_1 m_1} Y_{\ell_1 m_1}(\hat n_1) Y^*_{\ell_1 m_1}(\hat n_1')
+  \sum_{\ell_2 m_2} Y_{\ell_2 m_2}(\hat n_2) Y^*_{\ell_2 m_2}(\hat n_2') \\
+  &= \sum_{\ell_1\ell_2LM}
   Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+  Y^{LM*}_{\ell_1\ell_2}(\hat n_1',\hat n_2'),
+\end{align}
+where the last line uses CG completeness to reorganize the sums over $m_1,m_2$.
+\end{derivationbox}
+
+\subsection{Phase-Convention Sensitivity}
+\begin{derivationbox}
+The orthogonality and completeness identities above rely on
+\begin{equation}
+  Y_{\ell,-m}(\hat n)=(-1)^m Y^*_{\ell m}(\hat n)
+  \quad\text{and}\quad
+  \sum_{m_1 m_2}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L'}{M'}
+  = \delta_{L L'}\delta_{M M'}.
 \end{equation}
+If either phase convention is changed, the orthogonality of
+$Y^{LM}_{\ell_1\ell_2}$ fails and the completeness relation no longer reproduces
+$\delta(\hat n_1,\hat n_1')\delta(\hat n_2,\hat n_2')$.
+\end{derivationbox}
+
+\newpage
+
+% ============================================================
+\section{Isotropic Limit and Selection Rules}
+% ============================================================
+
+\subsection{$L=0$ BipoSH and Statistical Isotropy}
+\begin{derivationbox}
+For $L=0$ the CG coefficient enforces $\ell_1=\ell_2\equiv\ell$ and $m_2=-m_1$:
+\begin{equation}
+  \CG{\ell}{m}{\ell}{-m}{0}{0}
+  = (-1)^{\ell-m}\frac{1}{\sqrt{2\ell+1}}.
+\end{equation}
+Therefore
+\begin{align}
+  Y^{00}_{\ell\ell}(\hat n_1,\hat n_2)
+  &= \frac{(-1)^\ell}{\sqrt{2\ell+1}}
+  \sum_m (-1)^m Y_{\ell m}(\hat n_1) Y_{\ell,-m}(\hat n_2) \\
+  &= \frac{1}{\sqrt{2\ell+1}}
+  \sum_m Y_{\ell m}(\hat n_1) Y^*_{\ell m}(\hat n_2),
+\end{align}
+which is proportional to the addition theorem and depends only on
+$\hat n_1\cdot\hat n_2$.
+\end{derivationbox}
+
+\subsection{Recovery of the $C_\ell$ Expansion}
+\begin{derivationbox}
+For a statistically isotropic field, only $L=0$ contributes to the two-point
+function:
+\begin{align}
+  \langle X(\hat n_1) X(\hat n_2) \rangle
+  &= \sum_{\ell} C_{\ell}\, Y^{00}_{\ell\ell}(\hat n_1,\hat n_2) \\
+  &= \sum_{\ell} \frac{C_{\ell}}{\sqrt{2\ell+1}}
+  \sum_m Y_{\ell m}(\hat n_1) Y^*_{\ell m}(\hat n_2) \\
+  &= \sum_{\ell} \frac{2\ell+1}{4\pi} C_{\ell} P_\ell(\hat n_1\cdot\hat n_2).
+\end{align}
+This recovers the usual isotropic $C_\ell$ expansion.
+\end{derivationbox}
+
+\subsection{Selection Rules}
+\begin{derivationbox}
+From the CG coefficients, BipoSH modes satisfy
+\begin{align}
+  m_1+m_2 &= M, \\
+  |\ell_1-\ell_2| \le L \le \ell_1+\ell_2.
+\end{align}
+In the isotropic limit, $L=0$ additionally forces $\ell_1=\ell_2$.
+These selection rules follow directly from SO(3) representation theory.
+\end{derivationbox}
+
+
+% ============================================================
+\section{Spin-Weighted Spherical Harmonics}
+% ============================================================
+
+\subsection{Definition via $\eth$ and $\bar\eth$}
+\begin{derivationbox}
+Spin-weighted harmonics are generated from $Y_{\ell m}$ by applying the spin
+raising and lowering operators $\eth$ and $\bar\eth$ with fixed normalization
+\cite{GoldbergPlaceholder}:
+\begin{align}
+  {}_sY_{\ell m}
+  &= \sqrt{\frac{(\ell-s)!}{(\ell+s)!}}\,\eth^s Y_{\ell m},
+  && s \ge 0, \\[-0.25em]
+  {}_sY_{\ell m}
+  &= \sqrt{\frac{(\ell+s)!}{(\ell-s)!}}\,(-\bar\eth)^{-s} Y_{\ell m},
+  && s \le 0.
+\end{align}
+These definitions fix the overall phase and normalization of
+${}_sY_{\ell m}$ relative to $Y_{\ell m}$.
+\end{derivationbox}
+
+\begin{derivationbox}
+The $\eth$ and $\bar\eth$ actions on spin-weighted harmonics are
+\begin{align}
+  \eth\, {}_sY_{\ell m} &= \sqrt{(\ell-s)(\ell+s+1)}\; {}_{s+1}Y_{\ell m}, \\[0.25em]
+  \bar\eth\, {}_sY_{\ell m} &= -\sqrt{(\ell+s)(\ell-s+1)}\; {}_{s-1}Y_{\ell m}.
+\end{align}
+The square-root factors fix the normalization and are required for consistency
+with the Condon--Shortley phase conventions.
+\end{derivationbox}
+
+\subsection{Normalization, Conjugation, and Parity}
+\begin{derivationbox}
+The orthonormality of the spin-weighted basis follows from the defining
+relations above:
+\begin{equation}
+  \int d\hat n\; {}_sY_{\ell m}(\hat n)\,{}_sY^*_{\ell' m'}(\hat n)
+  = \delta_{\ell\ell'}\delta_{mm'}.
+\end{equation}
+This identity fails if the $\eth/\bar\eth$ normalization or phase conventions
+are altered.
+\end{derivationbox}
+
+\begin{derivationbox}
+Complex conjugation and parity act as
+\begin{align}
+  {}_sY^*_{\ell m}(\hat n)
+  &= (-1)^{m+s}\; {}_{-s}Y_{\ell,-m}(\hat n), \\[0.25em]
+  {}_sY_{\ell m}(-\hat n)
+  &= (-1)^{\ell}\; {}_{-s}Y_{\ell m}(\hat n).
+\end{align}
+Both identities are sensitive to the Condon--Shortley phase; any change of
+phase propagates into parity and conjugation rules.\hfill [Edmonds], [Goldberg et al.]
+\end{derivationbox}
+
+\subsection{Specialization to $s=\pm2$}
+\begin{derivationbox}
+For gravitational waves the spin-2 harmonics are
+\begin{align}
+  {}_{+2}Y_{\ell m}
+  &= \sqrt{\frac{(\ell-2)!}{(\ell+2)!}}\;\eth^2 Y_{\ell m}, \\[0.25em]
+  {}_{-2}Y_{\ell m}
+  &= \sqrt{\frac{(\ell+2)!}{(\ell-2)!}}\;\bar\eth^2 Y_{\ell m},
+\end{align}
+with the same normalization and conjugation rules as above.
+\end{derivationbox}
+
+\newpage
+
+% ============================================================
+\section{Spin-Weighted BipoSH}
+% ============================================================
+
+\subsection{Construction}
+\begin{derivationbox}
+For two fields with spin weights $s_1$ and $s_2$, define the spin-weighted
+BipoSH basis by coupling their angular momenta:
+\begin{equation}
+  {}_{s_1 s_2}Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+  = \sum_{m_1 m_2}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+  {}_{s_1}Y_{\ell_1 m_1}(\hat n_1)
+  {}_{s_2}Y_{\ell_2 m_2}(\hat n_2).
+\end{equation}
+This reduces to the scalar BipoSH when $s_1=s_2=0$.
+\end{derivationbox}
+
+\subsection{Rotation Covariance}
+\begin{derivationbox}
+Spin-weighted harmonics transform under rotation $R$ as
+\begin{equation}
+  {}_sY_{\ell m}(R\hat n)
+  = \sum_{m'} D^{\ell}_{m m'}(R)\; {}_sY_{\ell m'}(\hat n),
+\end{equation}
+so the coupled basis transforms as a single irrep:
+\begin{equation}
+  {}_{s_1 s_2}Y^{LM}_{\ell_1\ell_2}(R\hat n_1,R\hat n_2)
+  = \sum_{M'} D^L_{M M'}(R)\; {}_{s_1 s_2}Y^{LM'}_{\ell_1\ell_2}(\hat n_1,\hat n_2).
+\end{equation}
+Thus $L,M$ label the total angular momentum of the pair.
+\end{derivationbox}
+
+\newpage
+
+% ============================================================
+\section{Gravitational-Wave Polarizations}
+% ============================================================
+
+\subsection{$+\!/\times$ and $R/L$ Bases}
+\begin{derivationbox}
+Define linear and circular polarization combinations by
+\begin{align}
+  h_R(\hat n) &= \frac{1}{\sqrt{2}}\big(h_+(\hat n) - i h_{\times}(\hat n)\big), \\[0.25em]
+  h_L(\hat n) &= \frac{1}{\sqrt{2}}\big(h_+(\hat n) + i h_{\times}(\hat n)\big).
+\end{align}
+The inverse relations are
+\begin{align}
+  h_+(\hat n) &= \frac{1}{\sqrt{2}}\big(h_R(\hat n) + h_L(\hat n)\big), \\[0.25em]
+  h_{\times}(\hat n) &= \frac{i}{\sqrt{2}}\big(h_L(\hat n) - h_R(\hat n)\big).
+\end{align}
+\end{derivationbox}
+
+\subsection{Helicity and Spin Weight}
+\begin{derivationbox}
+The circular polarizations carry definite helicity and are expanded as
+\begin{align}
+  h_R(\hat n) &= \sum_{\ell m} h^R_{\ell m}\; {}_{-2}Y_{\ell m}(\hat n), \\[0.25em]
+  h_L(\hat n) &= \sum_{\ell m} h^L_{\ell m}\; {}_{+2}Y_{\ell m}(\hat n).
+\end{align}
+Thus $s_R=-2$ and $s_L=+2$ track the helicity content explicitly.
+\end{derivationbox}
+
+\subsection{Parity and Chirality}
+\begin{derivationbox}
+Under spatial inversion $\hat n\mapsto-\hat n$,
+\begin{align}
+  h_+(\hat n) &\mapsto +h_+(-\hat n), \\[0.25em]
+  h_{\times}(\hat n) &\mapsto -h_{\times}(-\hat n),
+\end{align}
+so parity swaps the circular modes:
+\begin{equation}
+  h_R(\hat n) \mapsto h_L(-\hat n),
+  \qquad
+  h_L(\hat n) \mapsto h_R(-\hat n).
+\end{equation}
+A chiral background corresponds to unequal statistics for $R$ and $L$.
+\end{derivationbox}
 
 \newpage
 
@@ -234,29 +537,67 @@ in later BipoSH manipulations \cite{EdmondsPlaceholder,VarshalovichPlaceholder,W
 \section{Gravitational-Wave Two-Point Functions}
 % ============================================================
 
-\subsection{General Correlator}
+\subsection{Most General Correlator}
+\begin{derivationbox}
+For $A,A'\in\{R,L\}$ define the two-point function on $S^2\times S^2$ as
 \begin{equation}
   \langle h_A(\hat n_1) h_{A'}(\hat n_2) \rangle
-  =
-  \sum_{\ell_1\ell_2LM}
+  = \sum_{\ell_1\ell_2LM}
   C^{AA'}_{\ell_1\ell_2L}
-  Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+  {}_{s_A s_{A'}}Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2),
 \end{equation}
+where $s_R=-2$ and $s_L=+2$. The coefficients $C^{AA'}_{\ell_1\ell_2L}$ encode
+anisotropy ($L>0$) and chirality (differences between $RR$ and $LL$).
+\end{derivationbox}
 
-\subsection{Parity and Chirality}
-(To be developed)
+\subsection{Parity-Even and Parity-Odd Sectors}
+\begin{derivationbox}
+Under parity, the correlator satisfies
+\begin{equation}
+  \langle h_A(-\hat n_1) h_{A'}(-\hat n_2) \rangle
+  = \sum_{\ell_1\ell_2LM} (-1)^{\ell_1+\ell_2}
+  C^{AA'}_{\ell_1\ell_2L}
+  {}_{-s_A,-s_{A'}}Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2),
+\end{equation}
+while parity invariance requires this to equal
+\begin{equation}
+  \langle h_{\bar A}(\hat n_1) h_{\bar A'}(\hat n_2) \rangle,
+  \qquad \bar R=L,\; \bar L=R.
+\end{equation}
+It is convenient to define parity-even/odd combinations
+\begin{align}
+  C^{AA'}_{\ell_1\ell_2L,\,\mathrm{even}}
+  &= \tfrac{1}{2}\Big(C^{AA'}_{\ell_1\ell_2L}
+  + (-1)^{\ell_1+\ell_2+L} C^{\bar A\bar A'}_{\ell_1\ell_2L}\Big), \\[0.25em]
+  C^{AA'}_{\ell_1\ell_2L,\,\mathrm{odd}}
+  &= \tfrac{1}{2}\Big(C^{AA'}_{\ell_1\ell_2L}
+  - (-1)^{\ell_1+\ell_2+L} C^{\bar A\bar A'}_{\ell_1\ell_2L}\Big),
+\end{align}
+so that parity invariance enforces $C_{\mathrm{odd}}=0$.
+\end{derivationbox}
 
 \newpage
 
 % ============================================================
-\section{Sanity Checks and Notes}
+\section{Sanity Checks \& Failure Modes}
 % ============================================================
 
 \begin{itemize}
-  \item Phase conventions consistent everywhere
-  \item Isotropic limit $L=0$ recovered
-  \item Parity-even / odd sectors identified
-  \item Cross-check against known results
+  \item Phase-convention failures: using $Y_{\ell,-m}=(-1)^{m+1}Y^*_{\ell m}$ or
+  a mismatched Condon--Shortley phase flips the sign of CG identities, breaking
+  orthogonality and completeness.
+  \item Parity sign mistakes: forgetting the $(-1)^\ell$ factor in
+  $Y_{\ell m}(-\hat n)$ or the spin flip in
+  ${}_sY_{\ell m}(-\hat n)=(-1)^\ell{}_{-s}Y_{\ell m}$ leads to incorrect
+  parity-even/odd separation.
+  \item Conjugation errors: dropping $(-1)^{m+s}$ in
+  ${}_sY^*_{\ell m}=(-1)^{m+s}{}_{-s}Y_{\ell,-m}$ produces inconsistent
+  $RR/LL$ correlator relations.
+  \item CG normalization slips: any change in
+  $\CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}$ normalization spoils the coupled basis and
+  invalidates the representation-theory derivation.
+  \item Selection-rule oversights: ignoring $m_1+m_2=M$ or the triangle
+  inequality leads to spurious BipoSH modes.
 \end{itemize}
 
 \end{document}
