@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+
+% =========================
+% Basic packages
+% =========================
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+% =========================
+% Notation & convenience
+% =========================
+\newcommand{\Ylm}{Y_{\ell m}}
+\newcommand{\Ylmp}{Y_{\ell' m'}}
+\newcommand{\CG}[6]{\langle #1\,#2\,#3\,#4 \mid #5\,#6 \rangle}
+\newcommand{\ThreeJ}[6]{\begin{pmatrix} #1 & #2 & #3 \\ #4 & #5 & #6 \end{pmatrix}}
+
+% =========================
+% Document metadata
+% =========================
+\title{Scratch Notes: Bipolar Spherical Harmonics for Gravitational Waves}
+\author{Murman Gurgenidze}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Conventions and definitions}
+\begin{tabular}{p{0.6\textwidth} p{0.3\textwidth}}
+\textbf{Definition} & \textbf{Concept} \\ \hline
+$\nabla^2\phi = 0$ 
+& Laplace equation \\[0.5em]
+\hline
+$\nabla^2 \phi = - k^2 \phi$ \\Is elliptic partial differential equation, which arises as an eigenvalue problem of the Laplace operator.
+& Helmholtz equation \\
+\end{tabular}
+
+% ============================================================
+\section{Global Conventions (DO NOT CHANGE MIDWAY)}
+% ============================================================
+
+\subsection{Phase Convention}
+\begin{itemize}
+  \item Condon--Shortley phase convention
+  \item $Y_{\ell,-m}(\hat n) = (-1)^m Y_{\ell m}^*(\hat n)$
+  \item Wigner 3j symbols related to CG coefficients via:
+  \begin{equation}
+    \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+    =
+    (-1)^{\ell_1-\ell_2+M}
+    \sqrt{2L+1}
+    \ThreeJ{\ell_1}{\ell_2}{L}{m_1}{m_2}{-M}
+  \end{equation}
+\end{itemize}
+
+\subsection{Parity}
+\begin{equation}
+  Y_{\ell m}(-\hat n) = (-1)^{\ell} Y_{\ell m}(\hat n)
+\end{equation}
+
+\subsection{Metric and Signature}
+
+\newpage
+
+% ============================================================
+\section{SO(3) and Angular Momentum Basics}
+% ============================================================
+
+\subsection{Angular Momentum Algebra}
+\begin{align}
+  [L_i, L_j] &= i \epsilon_{ijk} L_k \\
+  L^2 \ket{\ell m} &= \ell(\ell+1) \ket{\ell m} \\
+  L_z \ket{\ell m} &= m \ket{\ell m}
+\end{align}
+
+\subsection{Ladder Operators}
+\begin{equation}
+  L_\pm \ket{\ell m}
+  =
+  \sqrt{\ell(\ell+1)-m(m\pm1)}\ket{\ell,m\pm1}
+\end{equation}
+
+\newpage
+
+% ============================================================
+\section{Ordinary Spherical Harmonics}
+% ============================================================
+
+\subsection{Definition}
+\begin{equation}
+  Y_{\ell m}(\theta,\phi)
+  =
+  (-1)^m
+  \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}}
+  P_\ell^m(\cos\theta)e^{im\phi}
+\end{equation}
+
+\subsection{Orthogonality}
+\begin{equation}
+  \int d\hat n\;
+  Y_{\ell m}(\hat n) Y^*_{\ell' m'}(\hat n)
+  =
+  \delta_{\ell\ell'}\delta_{mm'}
+\end{equation}
+
+\subsection{Completeness}
+(To be derived)
+
+\newpage
+
+% ============================================================
+\section{Clebsch--Gordan Coefficients}
+% ============================================================
+
+\subsection{Tensor Product Decomposition}
+\begin{equation}
+  \mathcal{H}_{\ell_1} \otimes \mathcal{H}_{\ell_2}
+  =
+  \bigoplus_{L=|\ell_1-\ell_2|}^{\ell_1+\ell_2} \mathcal{H}_L
+\end{equation}
+
+\subsection{Selection Rules}
+\begin{itemize}
+  \item $m_1 + m_2 = M$
+  \item $|\ell_1-\ell_2| \le L \le \ell_1+\ell_2$
+\end{itemize}
+
+\newpage
+
+% ============================================================
+\section{Spin-Weighted Spherical Harmonics}
+% ============================================================
+
+\subsection{Spin-Raising and Lowering Operators}
+\begin{align}
+  \eth\, {}_sY_{\ell m} &= \sqrt{(\ell-s)(\ell+s+1)}\; {}_{s+1}Y_{\ell m} \\
+  \bar\eth\, {}_sY_{\ell m} &= -\sqrt{(\ell+s)(\ell-s+1)}\; {}_{s-1}Y_{\ell m}
+\end{align}
+
+\subsection{Spin-2 Case (Gravitational Waves)}
+(To be filled)
+
+\newpage
+
+% ============================================================
+\section{Bipolar Spherical Harmonics (BipoSH)}
+% ============================================================
+
+\subsection{Definition}
+\begin{equation}
+  Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+  =
+  \sum_{m_1 m_2}
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
+  Y_{\ell_1 m_1}(\hat n_1)
+  Y_{\ell_2 m_2}(\hat n_2)
+\end{equation}
+
+\subsection{Orthogonality}
+(To be derived explicitly)
+
+\subsection{Parity}
+\begin{equation}
+  Y^{LM}_{\ell_1\ell_2}(-\hat n_1,-\hat n_2)
+  =
+  (-1)^{\ell_1+\ell_2}
+  Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+\end{equation}
+
+\newpage
+
+% ============================================================
+\section{Gravitational-Wave Two-Point Functions}
+% ============================================================
+
+\subsection{General Correlator}
+\begin{equation}
+  \langle h_A(\hat n_1) h_{A'}(\hat n_2) \rangle
+  =
+  \sum_{\ell_1\ell_2LM}
+  C^{AA'}_{\ell_1\ell_2L}
+  Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
+\end{equation}
+
+\subsection{Parity and Chirality}
+(To be developed)
+
+\newpage
+
+% ============================================================
+\section{Sanity Checks and Notes}
+% ============================================================
+
+\begin{itemize}
+  \item Phase conventions consistent everywhere
+  \item Isotropic limit $L=0$ recovered
+  \item Parity-even / odd sectors identified
+  \item Cross-check against known results
+\end{itemize}
+
+\end{document}
