@@ -68,6 +68,7 @@ We take $\hat n$ as a unit direction on $S^2$ and define $Y_{\ell m}(\hat n)$ so
   \int_{S^2} d\hat n\; Y_{\ell m}(\hat n) Y^*_{\ell' m'}(\hat n)
   =
   \delta_{\ell\ell'}\delta_{mm'} .
+  \label{eq:ylm:orth}
 \end{equation}
 This normalization follows standard angular-momentum conventions \cite{1957Edmonds,1988varshalovich}.
 
@@ -76,12 +77,14 @@ We use
 \begin{equation}
   d\hat n \equiv d\Omega = \sin\theta\, d\theta\, d\phi, \qquad
   \int_{S^2} d\hat n = 4\pi .
+  \label{eq:s2:measure}
 \end{equation}
 
 \subsection{Phase Convention}
 We adopt the Condon--Shortley phase, so that
 \begin{equation}
   Y_{\ell,-m}(\hat n) = (-1)^m Y_{\ell m}^*(\hat n) .
+  \label{eq:ylm:conj}
 \end{equation}
 
 \subsection{CG / Wigner 3j Relation}
@@ -92,6 +95,7 @@ Clebsch--Gordan coefficients are related to Wigner 3j symbols by
   (-1)^{\ell_1-\ell_2+M}
   \sqrt{2L+1}
   \ThreeJ{\ell_1}{\ell_2}{L}{m_1}{m_2}{-M} .
+  \label{eq:cg:to3j}
 \end{equation}
 
 \subsection{Spin-Weight Convention}
@@ -103,18 +107,18 @@ $\eth$ and $\bar\eth$ acting on $\Ylm$ with the standard phase choice
   {}_sY_{\ell m}^*(\hat n)
   =
   (-1)^{m+s}\; {}_{-s}Y_{\ell,-m}(\hat n) .
+  \label{eq:swsh:conj}
 \end{equation}
 
 \subsection{Complex Conjugation Rules}
 For ordinary harmonics,
-\begin{equation}
-  Y_{\ell m}^*(\hat n) = (-1)^m Y_{\ell,-m}(\hat n) .
-\end{equation}
+the complex-conjugation rule in \eqref{eq:ylm:conj} applies.
 
 \subsection{Parity Rules}
 Under spatial inversion $\hat n \mapsto -\hat n$,
 \begin{equation}
   Y_{\ell m}(-\hat n) = (-1)^{\ell} Y_{\ell m}(\hat n) .
+  \label{eq:ylm:parity}
 \end{equation}
 
 \subsection{Sanity Checks}
@@ -145,9 +149,12 @@ in later BipoSH manipulations \cite{1957Edmonds,1988varshalovich,1984wald,2007Ma
 
 \subsection{Angular Momentum Algebra}
 \begin{align}
-  [L_i, L_j] &= i \epsilon_{ijk} L_k \\
-  L^2 \ket{\ell m} &= \ell(\ell+1) \ket{\ell m} \\
-  L_z \ket{\ell m} &= m \ket{\ell m}
+  [L_i, L_j] &= i \epsilon_{ijk} L_k ,
+  \label{eq:so3:commutator} \\
+  L^2 \ket{\ell m} &= \ell(\ell+1) \ket{\ell m} ,
+  \label{eq:so3:l2_eigen} \\
+  L_z \ket{\ell m} &= m \ket{\ell m} .
+  \label{eq:so3:lz_eigen}
 \end{align}
 
 \subsection{Ladder Operators}
@@ -155,6 +162,7 @@ in later BipoSH manipulations \cite{1957Edmonds,1988varshalovich,1984wald,2007Ma
   L_\pm \ket{\ell m}
   =
   \sqrt{\ell(\ell+1)-m(m\pm1)}\ket{\ell,m\pm1}
+  \label{eq:so3:ladder}
 \end{equation}
 
 \newpage
@@ -170,15 +178,11 @@ in later BipoSH manipulations \cite{1957Edmonds,1988varshalovich,1984wald,2007Ma
   (-1)^m
   \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}}
   P_\ell^m(\cos\theta)e^{im\phi}
+  \label{eq:ylm:def}
 \end{equation}
 
 \subsection{Orthogonality}
-\begin{equation}
-  \int d\hat n\;
-  Y_{\ell m}(\hat n) Y^*_{\ell' m'}(\hat n)
-  =
-  \delta_{\ell\ell'}\delta_{mm'}
-\end{equation}
+The orthogonality condition is given in \eqref{eq:ylm:orth}.
 
 \subsection{Completeness}
 \begin{derivationbox}
@@ -186,10 +190,12 @@ Completeness on $S^2$ follows from the addition theorem:
 \begin{align}
   \sum_{m=-\ell}^{\ell}
   Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n')
-  &= \frac{2\ell+1}{4\pi} P_\ell(\hat n\cdot\hat n'), \\
+  &= \frac{2\ell+1}{4\pi} P_\ell(\hat n\cdot\hat n'),
+  \label{eq:ylm:addition} \\
   \sum_{\ell=0}^{\infty}\sum_{m=-\ell}^{\ell}
   Y_{\ell m}(\hat n) Y^*_{\ell m}(\hat n')
   &= \delta(\hat n,\hat n').
+  \label{eq:ylm:complete}
 \end{align}
 The second line is the completeness relation on the sphere, with the delta
 function normalized so that $\int d\hat n\,\delta(\hat n,\hat n')=1$.
@@ -206,13 +212,16 @@ function normalized so that $\int d\hat n\,\delta(\hat n,\hat n')=1$.
   \mathcal{H}_{\ell_1} \otimes \mathcal{H}_{\ell_2}
   =
   \bigoplus_{L=|\ell_1-\ell_2|}^{\ell_1+\ell_2} \mathcal{H}_L
+  \label{eq:cg:tensor_decomp}
 \end{equation}
 
 \subsection{Selection Rules}
-\begin{itemize}
-  \item $m_1 + m_2 = M$
-  \item $|\ell_1-\ell_2| \le L \le \ell_1+\ell_2$
-\end{itemize}
+\begin{align}
+  m_1 + m_2 &= M,
+  \label{eq:cg:selection_m} \\
+  |\ell_1-\ell_2| &\le L \le \ell_1+\ell_2 .
+  \label{eq:cg:selection_triangle}
+\end{align}
 
 \newpage
 
@@ -225,6 +234,7 @@ function normalized so that $\int d\hat n\,\delta(\hat n,\hat n')=1$.
 An SO(3) rotation $R$ acts on the irrep basis by
 \begin{equation}
   \hat U(R)\ket{\ell m} = \sum_{m'} D^{\ell}_{m' m}(R)\ket{\ell m'}.
+  \label{eq:so3:rot_irrep}
 \end{equation}
 On the tensor product $\mathcal{H}_{\ell_1}\otimes\mathcal{H}_{\ell_2}$ the action is
 \begin{align}
@@ -232,6 +242,7 @@ On the tensor product $\mathcal{H}_{\ell_1}\otimes\mathcal{H}_{\ell_2}$ the acti
   &= \sum_{m_1' m_2'} D^{\ell_1}_{m_1' m_1}(R)
   D^{\ell_2}_{m_2' m_2}(R)
   \ket{\ell_1 m_1'}\ket{\ell_2 m_2'}.
+  \label{eq:so3:rot_tensor}
 \end{align}
 Thus the product representation decomposes into irreps labeled by $L$.
 \end{derivationbox}
@@ -244,10 +255,12 @@ Define the coupled basis $\ket{\ell_1 \ell_2; L M}$ by Clebsch--Gordan coefficie
   = \sum_{m_1 m_2}
   \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
   \ket{\ell_1 m_1}\ket{\ell_2 m_2}.
+  \label{eq:cg:coupled_basis}
 \end{equation}
 Orthonormality of the CG coefficients implies
 \begin{equation}
   \braket{\ell_1 \ell_2; L M | \ell_1 \ell_2; L' M'} = \delta_{L L'}\delta_{M M'}.
+  \label{eq:3j:orth}
 \end{equation}
 This basis furnishes the irrep $\mathcal{H}_L$ inside
 $\mathcal{H}_{\ell_1}\otimes\mathcal{H}_{\ell_2}$. \hfill [Edmonds], [Varshalovich]
@@ -260,11 +273,13 @@ $Y_{\ell m}(\hat n)=\braket{\hat n|\ell m}$. The tensor-product position basis i
 $\ket{\hat n_1,\hat n_2}=\ket{\hat n_1}\otimes\ket{\hat n_2}$. Then
 \begin{align}
   Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
-  &\equiv \braket{\hat n_1,\hat n_2|\ell_1 \ell_2; L M} \\
+  &\equiv \braket{\hat n_1,\hat n_2|\ell_1 \ell_2; L M},
+  \label{eq:biposh:def_state} \\
   &= \sum_{m_1 m_2}
   \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
   Y_{\ell_1 m_1}(\hat n_1)
   Y_{\ell_2 m_2}(\hat n_2),
+  \label{eq:biposh:def}
 \end{align}
 which is the bipolar spherical harmonic definition derived from the coupled
 basis. The labels $\ell_1,\ell_2$ describe the individual angular momenta on
@@ -283,53 +298,67 @@ so any $L>0$ component measures deviations from statistical isotropy.
 
 \subsection{Orthogonality on S2 times S2}
 \begin{derivationbox}
-Using the definition and orthogonality of $Y_{\ell m}$,
+Start from the definition in \eqref{eq:biposh:def} and integrate over $S^2\times S^2$:
 \begin{align}
-  &\int d\hat n_1 d\hat n_2\;
+  I &\equiv \int d\hat n_1 d\hat n_2\;
   Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
-  Y^{L'M'*}_{\ell_1'\ell_2'}(\hat n_1,\hat n_2) \\
+  Y^{L'M'*}_{\ell_1'\ell_2'}(\hat n_1,\hat n_2),
+  \label{eq:biposh:orth_step1} \\
   &= \sum_{m_1 m_2 m_1' m_2'}
   \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
   \CG{\ell_1'}{m_1'}{\ell_2'}{m_2'}{L'}{M'}
-  \int d\hat n_1\,Y_{\ell_1 m_1} Y^*_{\ell_1' m_1'}
-  \int d\hat n_2\,Y_{\ell_2 m_2} Y^*_{\ell_2' m_2'} \\
+  \int d\hat n_1\,Y_{\ell_1 m_1}(\hat n_1) Y^*_{\ell_1' m_1'}(\hat n_1)
+  \int d\hat n_2\,Y_{\ell_2 m_2}(\hat n_2) Y^*_{\ell_2' m_2'}(\hat n_2),
+  \label{eq:biposh:orth_step2} \\
   &= \delta_{\ell_1\ell_1'}\delta_{\ell_2\ell_2'}
   \sum_{m_1 m_2}
   \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
-  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L'}{M'} \\
+  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L'}{M'},
+  \label{eq:biposh:orth_step3} \\
   &= \delta_{\ell_1\ell_1'}\delta_{\ell_2\ell_2'}\delta_{L L'}\delta_{M M'}.
+  \label{eq:biposh:orth}
 \end{align}
-The last step uses CG orthogonality.
+The step \eqref{eq:biposh:orth_step3} uses the spherical-harmonic orthogonality
+\eqref{eq:ylm:orth}, and the final step uses CG orthogonality
+\eqref{eq:3j:orth}.
+
+Used identities: \eqref{eq:biposh:def}, \eqref{eq:ylm:orth}, \eqref{eq:3j:orth}.
 \end{derivationbox}
 
 \subsection{Completeness on S2 times S2}
 \begin{derivationbox}
-Completeness follows by expanding the product of delta functions:
+Completeness follows by expanding the product of delta functions using
+\eqref{eq:ylm:complete} and then recoupling the $m$ sums:
 \begin{align}
   \delta(\hat n_1,\hat n_1')\,\delta(\hat n_2,\hat n_2')
   &= \sum_{\ell_1 m_1} Y_{\ell_1 m_1}(\hat n_1) Y^*_{\ell_1 m_1}(\hat n_1')
-  \sum_{\ell_2 m_2} Y_{\ell_2 m_2}(\hat n_2) Y^*_{\ell_2 m_2}(\hat n_2') \\
+  \sum_{\ell_2 m_2} Y_{\ell_2 m_2}(\hat n_2) Y^*_{\ell_2 m_2}(\hat n_2'),
+  \label{eq:biposh:complete_step1} \\
+  &= \sum_{\ell_1\ell_2}\sum_{m_1 m_2}
+  Y_{\ell_1 m_1}(\hat n_1) Y_{\ell_2 m_2}(\hat n_2)
+  Y^*_{\ell_1 m_1}(\hat n_1') Y^*_{\ell_2 m_2}(\hat n_2'),
+  \label{eq:biposh:complete_step2} \\
   &= \sum_{\ell_1\ell_2LM}
   Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2)
-  Y^{LM*}_{\ell_1\ell_2}(\hat n_1',\hat n_2'),
+  Y^{LM*}_{\ell_1\ell_2}(\hat n_1',\hat n_2').
+  \label{eq:biposh:complete}
 \end{align}
-where the last line uses CG completeness to reorganize the sums over $m_1,m_2$.
+The last line inserts the coupled basis using \eqref{eq:biposh:def} and the CG
+orthogonality relation \eqref{eq:3j:orth}.
+
+Used identities: \eqref{eq:ylm:complete}, \eqref{eq:biposh:def}, \eqref{eq:3j:orth}.
 \end{derivationbox}
 
 \subsection{Phase-Convention Sensitivity}
 \begin{derivationbox}
-The orthogonality and completeness identities above rely on
-\begin{equation}
-  Y_{\ell,-m}(\hat n)=(-1)^m Y^*_{\ell m}(\hat n)
-  ~~\text{and}~~
-  \sum_{m_1 m_2}
-  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
-  \CG{\ell_1}{m_1}{\ell_2}{m_2}{L'}{M'}
-  = \delta_{L L'}\delta_{M M'}.
-\end{equation}
-If either phase convention is changed, the orthogonality of
-$Y^{LM}_{\ell_1\ell_2}$ fails and the completeness relation no longer reproduces
+The steps from \eqref{eq:biposh:orth_step2} to \eqref{eq:biposh:orth} depend on
+the phase convention \eqref{eq:ylm:conj} and the CG orthogonality relation
+\eqref{eq:3j:orth}. If either convention is changed, the orthogonality of
+$Y^{LM}_{\ell_1\ell_2}$ fails, and the completeness relation
+\eqref{eq:biposh:complete} no longer reproduces
 $\delta(\hat n_1,\hat n_1')\delta(\hat n_2,\hat n_2')$.
+
+Used identities: \eqref{eq:ylm:conj}, \eqref{eq:3j:orth}, \eqref{eq:biposh:complete}.
 \end{derivationbox}
 
 \newpage
@@ -344,17 +373,22 @@ For $L=0$ the CG coefficient enforces $\ell_1=\ell_2\equiv\ell$ and $m_2=-m_1$:
 \begin{equation}
   \CG{\ell}{m}{\ell}{-m}{0}{0}
   = (-1)^{\ell-m}\frac{1}{\sqrt{2\ell+1}}.
+  \label{eq:biposh:L0}
 \end{equation}
-Therefore
+Insert \eqref{eq:biposh:L0} into the definition \eqref{eq:biposh:def}:
 \begin{align}
   Y^{00}_{\ell\ell}(\hat n_1,\hat n_2)
   &= \frac{(-1)^\ell}{\sqrt{2\ell+1}}
-  \sum_m (-1)^m Y_{\ell m}(\hat n_1) Y_{\ell,-m}(\hat n_2) \\
+  \sum_m (-1)^m Y_{\ell m}(\hat n_1) Y_{\ell,-m}(\hat n_2),
+  \label{eq:biposh:L0_step1} \\
   &= \frac{1}{\sqrt{2\ell+1}}
   \sum_m Y_{\ell m}(\hat n_1) Y^*_{\ell m}(\hat n_2),
+  \label{eq:biposh:L0_form}
 \end{align}
-which is proportional to the addition theorem and depends only on
-$\hat n_1\cdot\hat n_2$.
+where the second line uses the conjugation rule \eqref{eq:ylm:conj}. The result is
+proportional to the addition theorem and depends only on $\hat n_1\cdot\hat n_2$.
+
+Used identities: \eqref{eq:biposh:def}, \eqref{eq:biposh:L0}, \eqref{eq:ylm:conj}.
 \end{derivationbox}
 
 \subsection{Recovery of the multipole Expansion}
@@ -363,23 +397,35 @@ For a statistically isotropic field, only $L=0$ contributes to the two-point
 function:
 \begin{align}
   \langle X(\hat n_1) X(\hat n_2) \rangle
-  &= \sum_{\ell} C_{\ell}\, Y^{00}_{\ell\ell}(\hat n_1,\hat n_2) \\
+  &= \sum_{\ell} C_{\ell}\, Y^{00}_{\ell\ell}(\hat n_1,\hat n_2),
+  \label{eq:biposh:iso_step1} \\
   &= \sum_{\ell} \frac{C_{\ell}}{\sqrt{2\ell+1}}
-  \sum_m Y_{\ell m}(\hat n_1) Y^*_{\ell m}(\hat n_2) \\
+  \sum_m Y_{\ell m}(\hat n_1) Y^*_{\ell m}(\hat n_2),
+  \label{eq:biposh:iso_step2} \\
   &= \sum_{\ell} \frac{2\ell+1}{4\pi} C_{\ell} P_\ell(\hat n_1\cdot\hat n_2).
+  \label{eq:biposh:iso_step3}
 \end{align}
-This recovers the usual isotropic $C_\ell$ expansion.
+The step \eqref{eq:biposh:iso_step2} uses \eqref{eq:biposh:L0_form}, and the
+final line uses the addition theorem \eqref{eq:ylm:addition}. This recovers the
+usual isotropic $C_\ell$ expansion.
+
+Used identities: \eqref{eq:biposh:L0_form}, \eqref{eq:ylm:addition}.
 \end{derivationbox}
 
 \subsection{Selection Rules}
 \begin{derivationbox}
-From the CG coefficients, BipoSH modes satisfy
+The BipoSH selection rules follow directly from the CG constraints
+\eqref{eq:cg:selection_m} and \eqref{eq:cg:selection_triangle}. For the coupled
+coefficients in \eqref{eq:biposh:def},
 \begin{align}
-  m_1+m_2 &= M, \\
-  |\ell_1-\ell_2| \le L \le \ell_1+\ell_2.
+  m_1+m_2 &= M,
+  \label{eq:biposh:selection_m} \\
+  |\ell_1-\ell_2| &\le L \le \ell_1+\ell_2.
+  \label{eq:biposh:selection_triangle}
 \end{align}
-In the isotropic limit, $L=0$ additionally forces $\ell_1=\ell_2$.
-These selection rules follow directly from SO(3) representation theory.
+In the isotropic limit, \eqref{eq:biposh:L0} further imposes $\ell_1=\ell_2$.
+
+Used identities: \eqref{eq:cg:selection_m}, \eqref{eq:cg:selection_triangle}, \eqref{eq:biposh:L0}.
 \end{derivationbox}
 
 
@@ -395,47 +441,66 @@ raising and lowering operators $\eth$ and $\bar\eth$ with fixed normalization
 \begin{align}
   {}_sY_{\ell m}
   &= \sqrt{\frac{(\ell-s)!}{(\ell+s)!}}\,\eth^s Y_{\ell m},
-  && s \ge 0, \\[-0.25em]
+  && s \ge 0,
+  \label{eq:swsh:def_raise} \\[-0.25em]
   {}_sY_{\ell m}
   &= \sqrt{\frac{(\ell+s)!}{(\ell-s)!}}\,(-\bar\eth)^{-s} Y_{\ell m},
   && s \le 0.
+  \label{eq:swsh:def_lower}
 \end{align}
 These definitions fix the overall phase and normalization of
 ${}_sY_{\ell m}$ relative to $Y_{\ell m}$.
+
+Used identities: \eqref{eq:ylm:orth}.
 \end{derivationbox}
 
 \begin{derivationbox}
 The $\eth$ and $\bar\eth$ actions on spin-weighted harmonics are
 \begin{align}
-  \eth\, {}_sY_{\ell m} &= \sqrt{(\ell-s)(\ell+s+1)}\; {}_{s+1}Y_{\ell m}, \\[0.25em]
-  \bar\eth\, {}_sY_{\ell m} &= -\sqrt{(\ell+s)(\ell-s+1)}\; {}_{s-1}Y_{\ell m}.
+  \eth\, {}_sY_{\ell m}
+  &= \sqrt{(\ell-s)(\ell+s+1)}\; {}_{s+1}Y_{\ell m},
+  \label{eq:eth:raise} \\[0.25em]
+  \bar\eth\, {}_sY_{\ell m}
+  &= -\sqrt{(\ell+s)(\ell-s+1)}\; {}_{s-1}Y_{\ell m}.
+  \label{eq:eth:lower}
 \end{align}
 The square-root factors fix the normalization and are required for consistency
 with the Condon--Shortley phase conventions.
+
+Used identities: \eqref{eq:swsh:def_raise}, \eqref{eq:swsh:def_lower}.
 \end{derivationbox}
 
 \subsection{Normalization, Conjugation, and Parity}
 \begin{derivationbox}
 The orthonormality of the spin-weighted basis follows from the defining
-relations above:
+relations \eqref{eq:swsh:def_raise}--\eqref{eq:swsh:def_lower} together with
+the scalar orthogonality \eqref{eq:ylm:orth}:
 \begin{equation}
   \int d\hat n\; {}_sY_{\ell m}(\hat n)\,{}_sY^*_{\ell' m'}(\hat n)
   = \delta_{\ell\ell'}\delta_{mm'}.
+  \label{eq:swsh:orth}
 \end{equation}
 This identity fails if the $\eth/\bar\eth$ normalization or phase conventions
 are altered.
+
+Used identities: \eqref{eq:swsh:def_raise}, \eqref{eq:swsh:def_lower}, \eqref{eq:ylm:orth}.
 \end{derivationbox}
 
 \begin{derivationbox}
 Complex conjugation and parity act as
 \begin{align}
-  {}_sY^*_{\ell m}(\hat n)
-  &= (-1)^{m+s}\; {}_{-s}Y_{\ell,-m}(\hat n), \\[0.25em]
   {}_sY_{\ell m}(-\hat n)
   &= (-1)^{\ell}\; {}_{-s}Y_{\ell m}(\hat n).
+  \label{eq:swsh:parity}
 \end{align}
-Both identities are sensitive to the Condon--Shortley phase; any change of
-phase propagates into parity and conjugation rules.\hfill [Edmonds], [Goldberg et al.]
+The conjugation rule is given by \eqref{eq:swsh:conj}, and the parity relation
+\eqref{eq:swsh:parity} follows from the scalar parity \eqref{eq:ylm:parity}
+together with the $\eth/\bar\eth$ action in \eqref{eq:eth:raise} and
+\eqref{eq:eth:lower}. Both identities are sensitive to the Condon--Shortley
+phase; any change of phase propagates into parity and conjugation rules.
+\hfill [Edmonds], [Goldberg et al.]
+
+Used identities: \eqref{eq:swsh:conj}, \eqref{eq:ylm:parity}, \eqref{eq:eth:raise}, \eqref{eq:eth:lower}.
 \end{derivationbox}
 
 \subsection{Specialization to s= +-2}
@@ -443,11 +508,15 @@ phase propagates into parity and conjugation rules.\hfill [Edmonds], [Goldberg e
 For gravitational waves the spin-2 harmonics are
 \begin{align}
   {}_{+2}Y_{\ell m}
-  &= \sqrt{\frac{(\ell-2)!}{(\ell+2)!}}\;\eth^2 Y_{\ell m}, \\[0.25em]
+  &= \sqrt{\frac{(\ell-2)!}{(\ell+2)!}}\;\eth^2 Y_{\ell m},
+  \label{eq:swsh:s2_raise} \\[0.25em]
   {}_{-2}Y_{\ell m}
   &= \sqrt{\frac{(\ell+2)!}{(\ell-2)!}}\;\bar\eth^2 Y_{\ell m},
+  \label{eq:swsh:s2_lower}
 \end{align}
 with the same normalization and conjugation rules as above.
+
+Used identities: \eqref{eq:swsh:def_raise}, \eqref{eq:swsh:def_lower}.
 \end{derivationbox}
 
 \newpage
@@ -466,8 +535,11 @@ BipoSH basis by coupling their angular momenta:
   \CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}
   {}_{s_1}Y_{\ell_1 m_1}(\hat n_1)
   {}_{s_2}Y_{\ell_2 m_2}(\hat n_2).
+  \label{eq:swbiposh:def}
 \end{equation}
 This reduces to the scalar BipoSH when $s_1=s_2=0$.
+
+Used identities: \eqref{eq:biposh:def}, \eqref{eq:swsh:def_raise}, \eqref{eq:swsh:def_lower}.
 \end{derivationbox}
 
 \subsection{Rotation Covariance}
@@ -476,13 +548,17 @@ Spin-weighted harmonics transform under rotation $R$ as
 \begin{equation}
   {}_sY_{\ell m}(R\hat n)
   = \sum_{m'} D^{\ell}_{m m'}(R)\; {}_sY_{\ell m'}(\hat n),
+  \label{eq:swsh:rot}
 \end{equation}
 so the coupled basis transforms as a single irrep:
 \begin{equation}
   {}_{s_1 s_2}Y^{LM}_{\ell_1\ell_2}(R\hat n_1,R\hat n_2)
   = \sum_{M'} D^L_{M M'}(R)\; {}_{s_1 s_2}Y^{LM'}_{\ell_1\ell_2}(\hat n_1,\hat n_2).
+  \label{eq:swbiposh:rot}
 \end{equation}
 Thus $L,M$ label the total angular momentum of the pair.
+
+Used identities: \eqref{eq:swbiposh:def}, \eqref{eq:swsh:rot}, \eqref{eq:so3:rot_irrep}.
 \end{derivationbox}
 
 \newpage
@@ -496,40 +572,55 @@ Thus $L,M$ label the total angular momentum of the pair.
 \begin{derivationbox}
 Define linear and circular polarization combinations by
 \begin{align}
-  h_R(\hat n) &= \frac{1}{\sqrt{2}}\big(h_+(\hat n) - i h_{\times}(\hat n)\big), \\[0.25em]
+  h_R(\hat n) &= \frac{1}{\sqrt{2}}\big(h_+(\hat n) - i h_{\times}(\hat n)\big),
+  \label{eq:gw:pluscross_to_RL} \\[0.25em]
   h_L(\hat n) &= \frac{1}{\sqrt{2}}\big(h_+(\hat n) + i h_{\times}(\hat n)\big).
+  \label{eq:gw:pluscross_to_RL_L}
 \end{align}
 The inverse relations are
 \begin{align}
-  h_+(\hat n) &= \frac{1}{\sqrt{2}}\big(h_R(\hat n) + h_L(\hat n)\big), \\[0.25em]
+  h_+(\hat n) &= \frac{1}{\sqrt{2}}\big(h_R(\hat n) + h_L(\hat n)\big),
+  \label{eq:gw:RL_to_pluscross_plus} \\[0.25em]
   h_{\times}(\hat n) &= \frac{i}{\sqrt{2}}\big(h_L(\hat n) - h_R(\hat n)\big).
+  \label{eq:gw:RL_to_pluscross_cross}
 \end{align}
+
+Used identities: \eqref{eq:gw:pluscross_to_RL}.
 \end{derivationbox}
 
 \subsection{Helicity and Spin Weight}
 \begin{derivationbox}
 The circular polarizations carry definite helicity and are expanded as
 \begin{align}
-  h_R(\hat n) &= \sum_{\ell m} h^R_{\ell m}\; {}_{-2}Y_{\ell m}(\hat n), \\[0.25em]
+  h_R(\hat n) &= \sum_{\ell m} h^R_{\ell m}\; {}_{-2}Y_{\ell m}(\hat n),
+  \label{eq:gw:helicity_R} \\[0.25em]
   h_L(\hat n) &= \sum_{\ell m} h^L_{\ell m}\; {}_{+2}Y_{\ell m}(\hat n).
+  \label{eq:gw:helicity_L}
 \end{align}
 Thus $s_R=-2$ and $s_L=+2$ track the helicity content explicitly.
+
+Used identities: \eqref{eq:swsh:s2_raise}, \eqref{eq:swsh:s2_lower}.
 \end{derivationbox}
 
 \subsection{Parity and Chirality}
 \begin{derivationbox}
 Under spatial inversion $\hat n\mapsto-\hat n$,
 \begin{align}
-  h_+(\hat n) &\mapsto +h_+(-\hat n), \\[0.25em]
+  h_+(\hat n) &\mapsto +h_+(-\hat n),
+  \label{eq:gw:parity_plus} \\[0.25em]
   h_{\times}(\hat n) &\mapsto -h_{\times}(-\hat n),
+  \label{eq:gw:parity_cross}
 \end{align}
 so parity swaps the circular modes:
 \begin{equation}
   h_R(\hat n) \mapsto h_L(-\hat n),
   \qquad
   h_L(\hat n) \mapsto h_R(-\hat n).
+  \label{eq:gw:parity}
 \end{equation}
 A chiral background corresponds to unequal statistics for $R$ and $L$.
+
+Used identities: \eqref{eq:gw:pluscross_to_RL}, \eqref{eq:swsh:parity}.
 \end{derivationbox}
 
 \newpage
@@ -542,13 +633,22 @@ A chiral background corresponds to unequal statistics for $R$ and $L$.
 \begin{derivationbox}
 For $A,A'\in\{R,L\}$ define the two-point function on $S^2\times S^2$ as
 \begin{equation}
-  \langle h_A(\hat n_1) h_{A'}(\hat n_2) \rangle
+  \xi_{AA'}(\hat n_1,\hat n_2)
+  \equiv \langle h_A(\hat n_1) h_{A'}(\hat n_2) \rangle.
+  \label{eq:gw:corr:def}
+\end{equation}
+Expanding $\xi_{AA'}$ in the spin-weighted BipoSH basis gives
+\begin{equation}
+  \xi_{AA'}(\hat n_1,\hat n_2)
   = \sum_{\ell_1\ell_2LM}
   C^{AA'}_{\ell_1\ell_2L}
-  {}_{s_A s_{A'}}Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2),
+  {}_{s_A s_{A'}}Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2).
+  \label{eq:gw:corr:biposh_expansion}
 \end{equation}
 where $s_R=-2$ and $s_L=+2$. The coefficients $C^{AA'}_{\ell_1\ell_2L}$ encode
 anisotropy ($L>0$) and chirality (differences between $RR$ and $LL$).
+
+Used identities: \eqref{eq:swbiposh:def}, \eqref{eq:gw:helicity_R}, \eqref{eq:gw:helicity_L}.
 \end{derivationbox}
 
 \subsection{Parity-Even and Parity-Odd Sectors}
@@ -559,22 +659,28 @@ Under parity, the correlator satisfies
   = \sum_{\ell_1\ell_2LM} (-1)^{\ell_1+\ell_2}
   C^{AA'}_{\ell_1\ell_2L}
   {}_{-s_A,-s_{A'}}Y^{LM}_{\ell_1\ell_2}(\hat n_1,\hat n_2),
+  \label{eq:gw:corr:parity_transform}
 \end{equation}
 while parity invariance requires this to equal
 \begin{equation}
   \langle h_{\bar A}(\hat n_1) h_{\bar A'}(\hat n_2) \rangle,
   \qquad \bar R=L,\; \bar L=R.
+  \label{eq:gw:corr:parity_constraint}
 \end{equation}
 It is convenient to define parity-even/odd combinations
 \begin{align}
   C^{AA'}_{\ell_1\ell_2L,\,\mathrm{even}}
   &= \tfrac{1}{2}\Big(C^{AA'}_{\ell_1\ell_2L}
-  + (-1)^{\ell_1+\ell_2+L} C^{\bar A\bar A'}_{\ell_1\ell_2L}\Big), \\[0.25em]
+  + (-1)^{\ell_1+\ell_2+L} C^{\bar A\bar A'}_{\ell_1\ell_2L}\Big),
+  \label{eq:gw:corr:parity_evenodd} \\[0.25em]
   C^{AA'}_{\ell_1\ell_2L,\,\mathrm{odd}}
   &= \tfrac{1}{2}\Big(C^{AA'}_{\ell_1\ell_2L}
   - (-1)^{\ell_1+\ell_2+L} C^{\bar A\bar A'}_{\ell_1\ell_2L}\Big),
+  \label{eq:gw:corr:parity_odd}
 \end{align}
 so that parity invariance enforces $C_{\mathrm{odd}}=0$.
+
+Used identities: \eqref{eq:gw:parity}, \eqref{eq:gw:corr:biposh_expansion}.
 \end{derivationbox}
 
 \newpage
@@ -584,21 +690,20 @@ so that parity invariance enforces $C_{\mathrm{odd}}=0$.
 % ============================================================
 
 \begin{itemize}
-  \item Phase-convention failures: using $Y_{\ell,-m}=(-1)^{m+1}Y^*_{\ell m}$ or
-  a mismatched Condon--Shortley phase flips the sign of CG identities, breaking
-  orthogonality and completeness.
+  \item Phase-convention failures: changing the Condon--Shortley phase in
+  \eqref{eq:ylm:conj} flips the sign of CG identities, breaking
+  orthogonality \eqref{eq:biposh:orth} and completeness \eqref{eq:biposh:complete}.
   \item Parity sign mistakes: forgetting the $(-1)^\ell$ factor in
-  $Y_{\ell m}(-\hat n)$ or the spin flip in
-  ${}_sY_{\ell m}(-\hat n)=(-1)^\ell{}_{-s}Y_{\ell m}$ leads to incorrect
-  parity-even/odd separation.
-  \item Conjugation errors: dropping $(-1)^{m+s}$ in
-  ${}_sY^*_{\ell m}=(-1)^{m+s}{}_{-s}Y_{\ell,-m}$ produces inconsistent
-  $RR/LL$ correlator relations.
-  \item CG normalization slips: any change in
-  $\CG{\ell_1}{m_1}{\ell_2}{m_2}{L}{M}$ normalization spoils the coupled basis and
-  invalidates the representation-theory derivation.
-  \item Selection-rule oversights: ignoring $m_1+m_2=M$ or the triangle
-  inequality leads to spurious BipoSH modes.
+  \eqref{eq:ylm:parity} or the spin flip in \eqref{eq:swsh:parity} leads to
+  incorrect parity-even/odd separation in \eqref{eq:gw:corr:parity_evenodd}.
+  \item Conjugation errors: dropping the $(-1)^{m+s}$ factor in
+  \eqref{eq:swsh:conj} produces inconsistent $RR/LL$ correlator relations in
+  \eqref{eq:gw:corr:biposh_expansion}.
+  \item CG normalization slips: any change in the normalization implied by
+  \eqref{eq:cg:to3j} spoils the coupled basis \eqref{eq:cg:coupled_basis} and
+  invalidates the representation-theory derivation of \eqref{eq:biposh:def}.
+  \item Selection-rule oversights: ignoring \eqref{eq:cg:selection_m} or
+  \eqref{eq:cg:selection_triangle} leads to spurious BipoSH modes.
 \end{itemize}
 \bibliographystyle{plain}
 \bibliography{ref}
